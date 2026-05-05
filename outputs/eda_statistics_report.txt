@@ -1,0 +1,118 @@
+======================================================================
+MedSum-AI: COMPREHENSIVE EDA STATISTICS REPORT
+Indiana University Chest X-Ray Dataset
+======================================================================
+
+
+1. DATASET OVERVIEW
+----------------------------------------
+Total XML reports parsed: 3,955
+Total chest X-ray images: 7,471
+Mean images per report: 1.89 (SD=0.52)
+Unique MeSH major terms: 1,719
+Total MeSH annotations: 8,298
+
+
+2. MISSING DATA ANALYSIS
+----------------------------------------
+findings       :  530 missing (13.4%)
+impression     :   34 missing (0.9%)
+indication     :   90 missing (2.3%)
+comparison     : 1198 missing (30.3%)
+
+
+3. DATA CLEANING RESULTS
+----------------------------------------
+Raw input:              3,955 records
+After removing empty:   3,927 records (-28, 0.7%)
+After deduplication:    3,159 records (-768, 19.6%)
+After truncation filter:3,155 records (-4, 0.1%)
+Final cleaned dataset:  3,155 records (79.8% retained)
+
+
+4. REPORT LENGTH STATISTICS (Word Count)
+----------------------------------------
+Metric                 Findings   Impression      Total
+Mean                       31.6         10.7       39.9
+Median                     29.0          5.0       35.0
+Std Dev                    14.6         12.1       20.3
+Min                           1            1         12
+Max                         169          130        230
+25th Percentile              22            4         26
+75th Percentile              38           12         48
+
+Compression Ratio (Findings/Impression):
+  Mean: 5.52x | Median: 5.20x
+
+
+5. PATHOLOGY CATEGORY DISTRIBUTION
+----------------------------------------
+  Normal              :  1396 ( 35.3%)
+  Cardiomegaly        :   375 (  9.5%)
+  Opacity/Mass        :   556 ( 14.1%)
+  Atelectasis         :   332 (  8.4%)
+  Pleural Effusion    :   165 (  4.2%)
+  Pneumonia           :   120 (  3.0%)
+  Emphysema/COPD      :   152 (  3.8%)
+  Edema               :   100 (  2.5%)
+  Fracture            :    84 (  2.1%)
+  Pneumothorax        :    27 (  0.7%)
+
+
+6. FEATURE ENGINEERING SUMMARY (25 Features)
+----------------------------------------
+  F01_clinical_sentiment: mean=0.498, std=0.225, min=0.000, max=1.000
+  F02_clinical_entity_count: mean=4.081, std=1.435, min=0.000, max=10.000
+  F03_severity_score: mean=0.961, std=1.250, min=0.000, max=4.000
+  F04_diagnostic_term_freq: mean=0.318, std=0.533, min=0.000, max=3.000
+  F05_impression_length: mean=12.076, std=12.922, min=0.000, max=130.000
+  F06_word_count: mean=41.418, std=21.213, min=5.000, max=230.000
+  F07_sentence_count: mean=6.566, std=2.745, min=1.000, max=32.000
+  F08_findings_impression_ratio: mean=4.733, std=3.800, min=0.000, max=48.000
+  F09_has_measurements: mean=0.041, std=0.199, min=0.000, max=1.000
+  F10_negation_count: mean=2.525, std=1.415, min=0.000, max=11.000
+  F13_flesch_kincaid: mean=13.535, std=3.157, min=1.905, max=23.915
+  F14_abbrev_density: mean=0.001, std=0.005, min=0.000, max=0.057
+  F15_numerical_count: mean=0.482, std=0.937, min=0.000, max=12.000
+  F16_hedge_count: mean=0.376, std=0.613, min=0.000, max=4.000
+  F17_passive_ratio: mean=0.066, std=0.046, min=0.000, max=0.286
+  F18_temporal_count: mean=1.124, std=0.941, min=0.000, max=7.000
+  F19_has_recommendation: mean=0.104, std=0.305, min=0.000, max=1.000
+  F20_elixhauser_score: mean=0.145, std=0.547, min=0.000, max=4.000
+  F21_charlson_score: mean=0.162, std=0.586, min=0.000, max=7.000
+  F22_composite_severity: mean=0.293, std=0.137, min=0.020, max=0.738
+  F23_pathology_confidence: mean=0.521, std=0.215, min=0.150, max=1.680
+  F24_report_complexity: mean=0.248, std=0.064, min=0.040, max=0.682
+  F25_is_abnormal: Normal=687, Abnormal=2468
+
+
+7. PREDICTIVE MODEL RESULTS (10-Fold Cross-Validation)
+----------------------------------------
+Model                        AUC-ROC   F1 Score  Target Met?
+------------------------------------------------------------
+Logistic_Regression           0.8612     0.8218          YES
+Random_Forest                 0.9155     0.9267          YES
+XGBoost                       0.9169     0.9209          YES
+Cox_PHM                       0.7453        N/A          YES
+
+
+8. STATISTICAL SIGNIFICANCE TESTS
+----------------------------------------
+Feature                         U-statistic      p-value  Significant
+  clinical_sentiment                 691063     7.66e-14 YES (p<0.001)
+  clinical_entity_count              676846     1.16e-16 YES (p<0.001)
+  severity_score                     539194     1.71e-58 YES (p<0.001)
+  word_count                         397072    4.22e-101 YES (p<0.001)
+  negation_count                    1005325     1.86e-14 YES (p<0.001)
+  composite_severity                 484734     3.03e-66 YES (p<0.001)
+
+
+9. KEY FINDINGS
+----------------------------------------
+• All three classification models exceed target thresholds (AUC>0.80, F1>0.78)
+• XGBoost achieves highest AUC-ROC (0.917) and Random Forest highest F1 (0.927)
+• NLP-derived features dominate feature importance rankings
+• Clinical sentiment and negation count are top discriminators
+• Dataset shows moderate class imbalance (78.2% Abnormal vs 21.8% Normal)
+• Compression ratio of 5.2x validates the summarization task
+• All statistical tests show significant differences between Normal/Abnormal (p<0.001)
