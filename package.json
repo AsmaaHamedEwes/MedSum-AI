@@ -1,0 +1,23 @@
+{
+  "name": "medsumai",
+  "version": "1.0.0",
+  "description": "Med Sum-AI is structured as a four-stage end-to-end pipeline. Stage 1 (Data Preprocessing) covers section parsing, de-identification verification, tokenization, and train/validation/test splitting (70/15/15).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AsmaaHamedEwes/MedSum-AI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AsmaaHamedEwes/MedSum-AI/issues"
+  },
+  "homepage": "https://github.com/AsmaaHamedEwes/MedSum-AI#readme",
+  "dependencies": {
+    "docx": "^9.6.1"
+  }
+}
