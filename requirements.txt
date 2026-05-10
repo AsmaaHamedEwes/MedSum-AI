@@ -1,4 +1,6 @@
 # MedSum-AI: Requirements
+# Python dependencies for data processing, ML, NLP, and visualization
+
 # Core Data Science
 pandas>=1.5.0
 numpy>=1.23.0
@@ -29,3 +31,7 @@ lxml>=4.9.0
 # Optional: Jupyter
 jupyter>=1.0.0
 ipykernel>=6.0.0
+
+# Node.js dependencies
+# For Node.js packages and tools, see package.json
+# Install with: npm install

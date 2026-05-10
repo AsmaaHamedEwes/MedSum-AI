@@ -43,6 +43,12 @@ venv.bak/
 *~
 .DS_Store
 
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn.lock
+
 # Jupyter Notebook
 .ipynb_checkpoints/
 *.ipynb_checkpoints
