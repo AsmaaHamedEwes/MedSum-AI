@@ -1,0 +1,65 @@
+{
+  "dataset_stats": {
+    "iu_raw": 3955,
+    "iu_clean": 2985,
+    "casia_raw": 13672,
+    "casia_clean": 11111,
+    "iu_keep_pct": 75.47408343868521,
+    "casia_keep_pct": 81.26828554710357,
+    "iu_findings_mean": 34.65448892343568,
+    "iu_findings_median": 32.0,
+    "iu_impression_mean": 12.360187982544478,
+    "iu_impression_median": 7.0,
+    "casia_findings_mean": 36.87921879218792,
+    "casia_findings_median": 35.0,
+    "casia_impression_mean": 12.373413734137342,
+    "casia_impression_median": 11.0
+  },
+  "vocabulary": {
+    "iu_vocab_size": 1535,
+    "casia_vocab_size": 480
+  },
+  "demographics": {
+    "casia_age_mean": 65.16517977831846,
+    "casia_age_median": 65.0,
+    "casia_gender_counts": {
+      "M": 6449,
+      "F": 4639
+    }
+  },
+  "iu_models": {
+    "LR": {
+      "AUC": 0.9600125893165142,
+      "F1": 0.9251679476730172
+    },
+    "RF": {
+      "AUC": 0.9702785794947614,
+      "F1": 0.9559488519601238
+    },
+    "XGB": {
+      "AUC": 0.9740691414477224,
+      "F1": 0.9619158507394576
+    }
+  },
+  "casia_models": {
+    "LR": {
+      "Macro_F1": 0.8068163738777805
+    },
+    "RF": {
+      "Macro_F1": 0.9994931145181359
+    },
+    "XGB": {
+      "Macro_F1": 0.9994162577974801
+    },
+    "LR_TFIDF": {
+      "Macro_F1": 0.9987845949006464
+    }
+  },
+  "casia_classes": [
+    "Cardiomegaly",
+    "Mass",
+    "PleuralEffusion",
+    "Pneumonia",
+    "Pneumothorax"
+  ]
+}

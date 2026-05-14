@@ -1,0 +1,47 @@
+CASIA-CXR — EDA Statistics Report
+============================================================
+Records           : 13,672
+Columns           : 20
+
+Condition counts:
+  Cardiomegaly       5,503
+  Pneumonia          2,139
+  Mass               2,030
+  PleuralEffusion    2,000
+  Pneumothorax       2,000
+
+Age — mean=65.2, median=65.0, n_valid=11,097
+Gender : {'M': 6449, 'F': 4639}
+
+Report length (words):
+  findings_mean          32.1
+  findings_median        30.0
+  impression_mean        12.0
+  impression_median      11.0
+
+Top-25 most frequent findings words:
+  absence              29,555
+  anomalie             25,071
+  gril                 10,779
+  costal               10,779
+  parties              10,608
+  molles               10,608
+  droit                 6,667
+  pleural               6,485
+  épanchement           5,964
+  pulmonaire            5,424
+  opacités              5,401
+  gauche                5,351
+  niveau                5,046
+  aspect                4,960
+  thoracique            4,771
+  hémichamp             4,489
+  augmentation          4,227
+  index                 4,213
+  cardio                3,863
+  abondance             3,797
+  parenchymateuse       3,262
+  silhouette            3,241
+  médiastinal           3,178
+  elargissement         3,146
+  cardiaque             3,124

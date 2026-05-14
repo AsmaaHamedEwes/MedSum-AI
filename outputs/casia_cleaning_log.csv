@@ -1,0 +1,6 @@
+Step,Records,Removed
+Raw input,13672,0
+After dropping null ExamID,11111,2561
+After removing empty text,11111,0
+After dedup by ExamID,11111,0
+After truncation filter,11111,0

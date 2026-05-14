@@ -1,4 +1,7 @@
 # Dataset files
+CASIA_CXR_data/
+CASIA-CXRFullDataset/
+CASIA-CXRFullDataset.zip
 data/
 NLMCXR_png/
 NLMCXR_reports/

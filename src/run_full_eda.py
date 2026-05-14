@@ -1,17 +1,28 @@
 """
 MedSum-AI: Comprehensive EDA, Data Cleansing, Feature Engineering & Modeling
 =============================================================================
-Indiana University Chest X-Ray Dataset
-Author: Asmaa Hamed
-Date: May 2026
+Primary dataset   : Indiana University (IU-CXR) — English radiology reports
+Secondary dataset : CASIA-CXR              — French radiology reports
+Author            : Asmaa Hamed
+Date              : May 2026
 
-This script runs the complete pipeline:
-1. XML Parsing → data/iu_cxr_reports_parsed.csv
-2. EDA & Statistics → outputs/eda_statistics_report.txt
-3. Data Cleansing → data/iu_cxr_cleaned.csv
-4. Feature Engineering (25 features) → data/iu_cxr_features.csv
-5. Predictive Modeling → outputs/prediction_results.json
-6. All Figures → outputs/eda_figures/*.png
+This script runs the complete pipeline for BOTH datasets:
+
+IU-CXR (primary):
+  1. XML Parsing            -> data/iu_cxr_reports_parsed.csv
+  2. EDA & Statistics       -> outputs/eda_statistics_report.txt
+  3. Data Cleansing         -> data/iu_cxr_cleaned.csv
+  4. Feature Engineering    -> data/iu_cxr_features.csv (25 features)
+  5. Predictive Modeling    -> outputs/prediction_results.json
+  6. All Figures            -> outputs/eda_figures/*.png
+
+CASIA-CXR (secondary, French):
+  1. Load 5 condition CSVs  -> data/casia_cxr_combined.csv
+  2. Heavy EDA              -> outputs/casia_eda_statistics_report.txt
+  3. Data Cleansing         -> data/casia_cxr_cleaned.csv
+  4. Feature Engineering    -> data/casia_cxr_features.csv
+  5. 5-class Modeling       -> outputs/casia_prediction_results.json
+  6. Figures                -> outputs/eda_figures_casia/*.png
 """
 
 import pandas as pd
@@ -30,8 +41,16 @@ from sklearn.metrics import (roc_auc_score, roc_curve, confusion_matrix, classif
 from sklearn.inspection import permutation_importance
 from sklearn.feature_extraction.text import TfidfVectorizer
 from xgboost import XGBClassifier
-from lifelines import CoxPHFitter, KaplanMeierFitter
-from wordcloud import WordCloud
+# Heavy / dataset-specific imports — deferred so that --dataset casia
+# can run on a machine without lifelines / wordcloud installed.
+try:
+    from lifelines import CoxPHFitter, KaplanMeierFitter
+except ImportError:
+    CoxPHFitter = KaplanMeierFitter = None
+try:
+    from wordcloud import WordCloud
+except ImportError:
+    WordCloud = None
 from collections import Counter
 import xml.etree.ElementTree as ET
 import re
@@ -497,33 +516,60 @@ def generate_all_figures(df_raw, df_feat, feature_cols, X, y, cv):
 # MAIN EXECUTION
 # =============================================================================
 if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser(
+        description='MedSum-AI full pipeline: IU-CXR (primary) + CASIA-CXR (secondary)')
+    parser.add_argument('--dataset', choices=['iu', 'casia', 'both'],
+                        default='both',
+                        help='Which dataset(s) to run (default: both).')
+    args = parser.parse_args()
+
     print("\n" + "="*70)
     print("  MedSum-AI: FULL PIPELINE EXECUTION")
-    print("  Indiana University Chest X-Ray Dataset")
+    print("  Primary  : Indiana University Chest X-Ray (English)")
+    print("  Secondary: CASIA-CXR (French)")
     print("="*70)
 
-    # Step 1: Parse XML
-    df_raw = parse_xml_reports()
+    # ----- IU-CXR (primary, English) -----
+    if args.dataset in ('iu', 'both'):
+        print("\n>>> Running IU-CXR primary pipeline <<<")
+        df_raw   = parse_xml_reports()
+        df_clean = clean_data(df_raw.copy())
+        df_feat  = engineer_features(df_clean.copy())
+        results, feature_cols, X, y, cv = run_prediction_models(df_feat)
+        generate_all_figures(df_raw, df_feat, feature_cols, X, y, cv)
 
-    # Step 2: Clean
-    df_clean = clean_data(df_raw.copy())
-
-    # Step 3: Feature Engineering
-    df_feat = engineer_features(df_clean.copy())
-
-    # Step 4: Modeling
-    results, feature_cols, X, y, cv = run_prediction_models(df_feat)
-
-    # Step 5: Figures
-    generate_all_figures(df_raw, df_feat, feature_cols, X, y, cv)
+    # ----- CASIA-CXR (secondary, French) -----
+    if args.dataset in ('casia', 'both'):
+        print("\n>>> Running CASIA-CXR secondary pipeline <<<")
+        # Imported here so the script can still run if CASIA-CXR
+        # isn't present (e.g. for IU-CXR-only smoke tests).
+        from casia_cxr_pipeline import (
+            load_casia_reports, run_eda as casia_eda,
+            clean_casia, engineer_features as casia_features,
+            run_models as casia_models,
+        )
+        ca_raw   = load_casia_reports()
+        casia_eda(ca_raw)
+        ca_clean = clean_casia(ca_raw)
+        ca_feat  = casia_features(ca_clean)
+        casia_models(ca_feat)
 
     print("\n" + "="*70)
     print("  PIPELINE COMPLETE!")
     print("  Outputs:")
-    print("    - data/iu_cxr_reports_parsed.csv")
-    print("    - data/iu_cxr_cleaned.csv")
-    print("    - data/iu_cxr_features.csv")
-    print("    - outputs/prediction_results.json")
-    print("    - outputs/eda_statistics_report.txt")
-    print("    - outputs/eda_figures/ (13 PNG figures)")
+    print("    IU-CXR (primary):")
+    print("      - data/iu_cxr_reports_parsed.csv")
+    print("      - data/iu_cxr_cleaned.csv")
+    print("      - data/iu_cxr_features.csv")
+    print("      - outputs/prediction_results.json")
+    print("      - outputs/eda_statistics_report.txt")
+    print("      - outputs/eda_figures/ (13 PNG figures)")
+    print("    CASIA-CXR (secondary):")
+    print("      - data/casia_cxr_combined.csv")
+    print("      - data/casia_cxr_cleaned.csv")
+    print("      - data/casia_cxr_features.csv")
+    print("      - outputs/casia_prediction_results.json")
+    print("      - outputs/casia_eda_statistics_report.txt")
+    print("      - outputs/eda_figures_casia/ (8 PNG figures)")
     print("="*70)

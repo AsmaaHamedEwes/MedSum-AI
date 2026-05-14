@@ -1,0 +1,44 @@
+MedSum-AI — Cross-Dataset Observations (auto-generated)
+=========================================================
+
+Dataset size
+------------
+  IU-CXR    raw 3,955  clean 2,985  (75.5% kept)
+  CASIA-CXR raw 13,672  clean 11,111  (81.3% kept)
+  -> CASIA-CXR adds 3.7x more cleaned records.
+
+Report length (cleaned)
+-----------------------
+  Findings   IU mean=34.7   CASIA mean=36.9
+  Impression IU mean=12.4   CASIA mean=12.4
+
+Demographics
+------------
+  IU-CXR    : none
+  CASIA-CXR : age mean=65.2, median=65.0;
+              gender {'M': 6449, 'F': 4639}
+
+Vocabulary
+----------
+  IU-CXR    : 1,535 unique tokens in Findings
+  CASIA-CXR : 480 unique tokens in Findings (smaller, more templated)
+
+Model accuracy (5-fold CV, fresh)
+---------------------------------
+  IU-CXR  Normal vs Abnormal (binary):
+    LR  AUC=0.9600  F1=0.9252
+    RF  AUC=0.9703  F1=0.9559
+    XGB AUC=0.9741  F1=0.9619
+
+  CASIA-CXR  5-class condition (Macro-F1):
+    LR        0.8068
+    RF        0.9995
+    XGB       0.9994
+    LR-TFIDF  0.9988
+
+Top take-aways
+--------------
+* CASIA-CXR multiplies data ~3.7x and adds French language coverage.
+* CASIA is easier (single-label templated text) — best Macro-F1 ~0.999.
+* IU-CXR is harder (multi-label MeSH) — best AUC ~0.974, F1 ~0.962.
+* Only CASIA-CXR carries patient age/gender for fairness / stratification.
