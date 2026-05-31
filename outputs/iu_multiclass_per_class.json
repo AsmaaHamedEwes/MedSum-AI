@@ -1,0 +1,81 @@
+{
+  "Atelectasis": {
+    "precision": 0.3,
+    "recall": 0.09375,
+    "f1-score": 0.14285714285714285,
+    "support": 128.0
+  },
+  "Cardiomegaly": {
+    "precision": 0.6246851385390428,
+    "recall": 0.6666666666666666,
+    "f1-score": 0.6449934980494149,
+    "support": 372.0
+  },
+  "Edema": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1-score": 0.0,
+    "support": 6.0
+  },
+  "Emphysema/COPD": {
+    "precision": 0.7611940298507462,
+    "recall": 0.5257731958762887,
+    "f1-score": 0.6219512195121951,
+    "support": 194.0
+  },
+  "Fracture": {
+    "precision": 0.24,
+    "recall": 0.12,
+    "f1-score": 0.16,
+    "support": 50.0
+  },
+  "Normal": {
+    "precision": 0.7112375533428165,
+    "recall": 0.9107468123861566,
+    "f1-score": 0.7987220447284346,
+    "support": 549.0
+  },
+  "Opacity/Mass": {
+    "precision": 0.6058394160583942,
+    "recall": 0.7124463519313304,
+    "f1-score": 0.6548323471400395,
+    "support": 466.0
+  },
+  "Other": {
+    "precision": 0.9991071428571429,
+    "recall": 1.0,
+    "f1-score": 0.9995533720410897,
+    "support": 1119.0
+  },
+  "Pleural Effusion": {
+    "precision": 0.125,
+    "recall": 0.019230769230769232,
+    "f1-score": 0.03333333333333333,
+    "support": 52.0
+  },
+  "Pneumonia": {
+    "precision": 0.2,
+    "recall": 0.046511627906976744,
+    "f1-score": 0.07547169811320754,
+    "support": 43.0
+  },
+  "Pneumothorax": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1-score": 0.0,
+    "support": 6.0
+  },
+  "accuracy": 0.7778894472361809,
+  "macro avg": {
+    "precision": 0.415187570968013,
+    "recall": 0.37228412945438083,
+    "f1-score": 0.37561042325225985,
+    "support": 2985.0
+  },
+  "weighted avg": {
+    "precision": 0.7491946368017184,
+    "recall": 0.7778894472361809,
+    "f1-score": 0.755112545438798,
+    "support": 2985.0
+  }
+}
